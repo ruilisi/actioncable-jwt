@@ -15,7 +15,8 @@ export default {
   output: {
     file: "app/assets/javascripts/action_cable.js",
     format: "umd",
-    name: "ActionCable"
+    name: "ActionCable",
+    intro: "var self = typeof window !== 'undefined' ? window : global;"
   },
   plugins: [
     babel(),
