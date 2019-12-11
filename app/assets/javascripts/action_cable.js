@@ -2,6 +2,7 @@
   typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define([ "exports" ], factory) : factory(global.ActionCable = {});
 })(this, function(exports) {
   "use strict";
+  var self = typeof window !== "undefined" ? window : global;
   var adapters = {
     logger: self.console,
     WebSocket: self.WebSocket
@@ -194,7 +195,7 @@
         if (this.webSocket) {
           this.uninstallEventHandlers();
         }
-        this.webSocket = new adapters.WebSocket(this.consumer.url, protocols);
+        this.webSocket = new adapters.WebSocket(this.consumer.url, [].concat(protocols, [ this.consumer.jwt_token ]));
         this.installEventHandlers();
         this.monitor.start();
         return true;
@@ -447,8 +448,10 @@
   }();
   var Consumer = function() {
     function Consumer(url) {
+      var jwt_token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       classCallCheck(this, Consumer);
       this._url = url;
+      this.jwt_token = jwt_token;
       this.subscriptions = new Subscriptions(this);
       this.connection = new Connection(this);
     }
@@ -492,7 +495,8 @@
   }
   function createConsumer() {
     var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getConfig("url") || INTERNAL.default_mount_path;
-    return new Consumer(url);
+    var jwt_token = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    return new Consumer(url, jwt_token);
   }
   function getConfig(name) {
     var element = document.head.querySelector("meta[name='action-cable-" + name + "']");

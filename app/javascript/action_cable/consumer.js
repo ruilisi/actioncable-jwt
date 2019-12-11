@@ -28,8 +28,9 @@ import Subscriptions from "./subscriptions"
 // automatically resubscribe.
 
 export default class Consumer {
-  constructor(url) {
+  constructor(url, jwt_token = null) {
     this._url = url
+    this.jwt_token = jwt_token
     this.subscriptions = new Subscriptions(this)
     this.connection = new Connection(this)
   }

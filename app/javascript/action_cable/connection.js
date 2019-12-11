@@ -5,7 +5,7 @@ import logger from "./logger"
 
 // Encapsulate the cable connection held by the consumer. This is an internal class not intended for direct user manipulation.
 
-const {message_types, protocols} = INTERNAL
+const {message_types, protocols } = INTERNAL
 const supportedProtocols = protocols.slice(0, protocols.length - 1)
 
 const indexOf = [].indexOf
@@ -35,7 +35,7 @@ class Connection {
     } else {
       logger.log(`Opening WebSocket, current state is ${this.getState()}, subprotocols: ${protocols}`)
       if (this.webSocket) { this.uninstallEventHandlers() }
-      this.webSocket = new adapters.WebSocket(this.consumer.url, protocols)
+      this.webSocket = new adapters.WebSocket(this.consumer.url, [...protocols, this.consumer.jwt_token])
       this.installEventHandlers()
       this.monitor.start()
       return true

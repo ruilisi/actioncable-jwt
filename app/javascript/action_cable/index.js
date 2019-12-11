@@ -19,8 +19,8 @@ export {
   logger,
 }
 
-export function createConsumer(url = getConfig("url") || INTERNAL.default_mount_path) {
-  return new Consumer(url)
+export function createConsumer(url = getConfig("url") || INTERNAL.default_mount_path, jwt_token = null) {
+  return new Consumer(url, jwt_token)
 }
 
 export function getConfig(name) {
