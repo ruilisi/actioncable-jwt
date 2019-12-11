@@ -1,24 +1,20 @@
-# Action Cable – Integrated WebSockets for Rails
+# Action Cable Jwt
 
-Action Cable seamlessly integrates WebSockets with the rest of your Rails application.
-It allows for real-time features to be written in Ruby in the same style
-and form as the rest of your Rails application, while still being performant
-and scalable. It's a full-stack offering that provides both a client-side
-JavaScript framework and a server-side Ruby framework. You have access to your full
-domain model written with Active Record or your ORM of choice.
+This project solves the following issues which the official implementation of [action cable](https://github.com/rails/rails/tree/master/actioncable) hasn't solved:
 
-You can read more about Action Cable in the [Action Cable Overview](https://edgeguides.rubyonrails.org/action_cable_overview.html) guide.
+* Authenticate through jwt token
 
-## Support
+  It is solved simply by appending jwt token in the `Sec-WebSocket-Protocol` of the headers of initial WebSocket connection's. 
 
-API documentation is at:
 
-* https://api.rubyonrails.org
+* Make action cable compatible with SSR frameworks , ex., [Nextjs](https://nextjs.org/).
 
-Bug reports for the Ruby on Rails project can be filed here:
+  The original generated [action_cable.js](https://github.com/rails/rails/blob/master/actioncable/app/assets/javascripts/action_cable.js) attaches `self` value which can't be recognized by backend's Node server. It is solved by one line config in `rollup.config.js`
 
-* https://github.com/rails/rails/issues
+   ```
 
-Feature requests should be discussed on the rails-core mailing list here:
+  intro: "var self = typeof window !== 'undefined' ? window : global;"
+  ```
+* Generate the asset in production mode
 
-* https://groups.google.com/forum/?fromgroups#!forum/rubyonrails-core
+Besides, this project is setup as a standalone action cable js project which is ready for your play and development.
