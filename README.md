@@ -18,3 +18,9 @@ This project solves the following issues which the official implementation of [a
 * Generate the asset in production mode
 
 Besides, this project is setup as a standalone action cable js project which is ready for your play and development.
+
+# Usage
+
+```
+yarn add actioncable-jwt
+```
