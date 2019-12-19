@@ -1,6 +1,6 @@
 {
   "name": "actioncable-jwt",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "actioncable with jwt token",
   "main": "dist/action_cable.js",
   "files": [

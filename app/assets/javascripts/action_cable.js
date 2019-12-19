@@ -284,6 +284,9 @@
 
        case message_types.disconnect:
         logger.log("Disconnecting. Reason: " + reason);
+        if (reason === INTERNAL.disconnect_reasons.unauthorized) {
+          this.subscriptions.notifyAll("unauthorized");
+        }
         return this.close({
           allowReconnect: reconnect
         });
