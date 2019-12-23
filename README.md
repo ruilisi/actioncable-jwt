@@ -1,6 +1,27 @@
 # Action Cable Jwt
 
-This project solves the following issues which the official implementation of [action cable](https://github.com/rails/rails/tree/master/actioncable) hasn't solved:
+This package provides authentication through [JWT](https://jwt.io/) for [action cable](https://github.com/rails/rails/tree/master/actioncable) and other features.
+The recommended ways for handling connections of `acitoncable-jwt` are:
+* Gem [devise-jwt](https://github.com/waiting-for-dev/devise-jwt)
+* Rails starter kit [rails-pangu](https://github.com/ruilisi/rails-pangu)
+
+## Install
+
+```
+npm install --save actioncable-jwt
+yarn add actioncable-jwt
+```
+
+## Usage
+```javascript
+import { createConsumer } from 'actioncable-jwt'
+const consumer = createConsumer(ACTIONCABLE_URL, JWT_TOKNE) 
+```
+
+
+## Features
+
+Besides that this package is setup as a standalone action cable project, features below are provided:
 
 * Authenticate through jwt token
 
@@ -16,11 +37,4 @@ This project solves the following issues which the official implementation of [a
   intro: "var self = typeof window !== 'undefined' ? window : global;"
   ```
 * Generate the asset in production mode
-
-Besides, this project is setup as a standalone action cable js project which is ready for your play and development.
-
-# Usage
-
-```
-yarn add actioncable-jwt
-```
+* The original actioncable package does not deal with backend disconnection event with an `unauthorized` reason, this package does.
